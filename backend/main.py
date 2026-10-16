@@ -1,10 +1,13 @@
 #main.py                                                                                                      
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel #,Field,felid_validator
+from pydantic import BaseModel, Field,field_validator
 from database import get_connection
 from analyzer import analyze_resume
 import json
 from fastapi.middleware.cors import CORSMiddleware
+import logging  
+logging.basicConfig(level=logging.INFO)
+logger=logging.getLogger(__name__)
 
 
 app = FastAPI()
@@ -30,8 +33,14 @@ app.add_middleware(CORSMiddleware, allow_origins=[
 # allow_methods=["GET","POST"],allow_headers=["content-type"])
 
 class AnalyzeRequest(BaseModel):
-    resume_text: str
-    jd_text: str
+    resume_text: str=Field(min_length=50)
+    jd_text: str=Field(min_length=50)
+    @field_validator("resume_text","jd_text")
+    @classmethod
+    def not_blank_validate(cls,values):
+        if not values.strip():
+            raise ValueError("fill without spaces")
+        return values
 
 
 @app.get("/")
@@ -76,8 +85,8 @@ def analyze(request: AnalyzeRequest):
         
     except Exception as error:
         if connection is not None and connection.is_connected():
-            connection.rollback()
-
+            connection.rollback()  
+        logger.exception("failed to save resume analysis")
         raise HTTPException(
             status_code=500,
             detail="Failed to save analysis"
