@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Jobs – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="jobs">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Find Jobs</h1>
+<p class="note">Local demo listings are returned by the backend. Queuing creates a local demo record only; it does not send an application email.</p>
+<section class="card" aria-labelledby="demo-resume-heading">
+  <h2 id="demo-resume-heading">Resume text for the application demo</h2>
+  <p class="muted">This sample is sent only to the local demo backend when you queue an application. Edit it to test other skill matches.</p>
+  <label for="application-resume">Sample resume</label>
+  <textarea id="application-resume" rows="4">Python developer with experience in SQL, React, FastAPI, and Docker.</textarea>
+</section>
+<form id="job-search-form" class="card" novalidate>
+  <label for="job-keywords">Search jobs</label>
+  <div class="search-row">
+    <input type="search" id="job-keywords" list="job-suggestions" placeholder="Python Developer" autocomplete="off">
+    <button type="submit" id="search-button">Search Jobs</button>
+  </div>
+  <datalist id="job-suggestions"><option value="Python Developer"><option value="Java Developer"><option value="Django Developer"><option value="Frontend Developer"></datalist>
+  <div class="chips" role="group" aria-label="Example searches">
+    <button type="button" class="secondary" data-q="Python Developer">Python Developer</button>
+    <button type="button" class="secondary" data-q="Java Developer">Java Developer</button>
+    <button type="button" class="secondary" data-q="Django Developer">Django Developer</button>
+    <button type="button" class="secondary" data-q="Frontend Developer">Frontend Developer</button>
+  </div>
+  <fieldset id="cert-experience-filters">
+    <legend>Filters</legend>
+    <div class="filters">
+      <div><label for="filter-experience">Experience</label>
+        <select id="filter-experience" name="experience"><option value="any">Any</option><option value="fresher">Fresher (0–1 yrs)</option><option value="junior">Junior (1–3 yrs)</option><option value="mid">Mid-level (3–6 yrs)</option><option value="senior">Senior (6+ yrs)</option></select></div>
+      <div><label for="filter-region">Region</label>
+        <select id="filter-region" name="region"><option value="global">Global</option><option value="usa">USA</option><option value="india">India</option><option value="bengaluru">Bengaluru</option></select></div>
+      <div><label for="filter-cert">Certification</label>
+        <select id="filter-cert" name="certification"><option value="any">Any</option><option value="aws">AWS</option><option value="azure">Microsoft Azure</option><option value="gcp">Google Cloud</option><option value="pmp">PMP</option><option value="scrum">Scrum Master</option></select></div>
+    </div>
+  </fieldset>
+  <button type="button" id="apply-cert-exp-filters">Apply Filters</button>
+  <button type="reset" class="danger" id="clear-search">Clear</button>
+</form>
+<p id="result-count" role="status"></p>
+<div id="job-results" class="cards-grid" aria-live="polite"></div>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="api.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

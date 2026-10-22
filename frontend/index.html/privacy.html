@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="privacy">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Privacy</h1>
+<p class="note">Settings are saved in this browser only. They do not change who can see your resume until a backend is connected.</p>
+<form id="privacy-form">
+  <div class="cards-grid">
+    <fieldset class="card">
+      <legend>Resume Visibility</legend>
+      <label class="opt"><input type="radio" name="resume-visibility" value="private" checked><span><strong>Private</strong><br>Only you can see your resume.</span></label>
+      <label class="opt"><input type="radio" name="resume-visibility" value="public"><span><strong>Public</strong><br>Recruiters can find and view it.</span></label>
+    </fieldset>
+    <fieldset class="card">
+      <legend>Contact &amp; downloads</legend>
+      <label class="switch" for="hide-email"><span>Hide Email</span><input type="checkbox" role="switch" id="hide-email" name="hide-email"></label>
+      <label class="switch" for="hide-phone"><span>Hide Phone</span><input type="checkbox" role="switch" id="hide-phone" name="hide-phone"></label>
+      <label class="switch" for="allow-download"><span>Allow Resume Download</span><input type="checkbox" role="switch" id="allow-download" name="allow-download"></label>
+    </fieldset>
+  </div>
+  <p id="privacy-msg" role="status"></p>
+  <button type="button" id="save-privacy">Save Privacy</button>
+</form>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="common.js"></script>
+</body>
+</html>

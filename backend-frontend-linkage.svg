@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1350" viewBox="0 0 1760 1350" role="img" aria-labelledby="title desc">
+  <title id="title">JOBNEX backend–frontend linkage</title>
+  <desc id="desc">Figma-importable overview of frontend pages, shared assets, FastAPI route groups, data flow, and current demo-only wiring status.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="dashArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#d97706"/>
+    </marker>
+    <marker id="activeArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#15803d"/>
+    </marker>
+    <style>
+      text { font-family: Inter, Segoe UI, Arial, sans-serif; fill: #172033; }
+      .title { font-size: 30px; font-weight: 700; }
+      .subtitle { font-size: 14px; fill: #475569; }
+      .section { font-size: 18px; font-weight: 700; }
+      .cardtitle { font-size: 15px; font-weight: 700; }
+      .body { font-size: 12px; fill: #334155; }
+      .small { font-size: 11px; fill: #475569; }
+      .route { font-size: 11px; font-weight: 600; fill: #1e3a5f; }
+      .front { fill: #eff6ff; stroke: #60a5fa; stroke-width: 1.5; }
+      .backend { fill: #f0fdf4; stroke: #4ade80; stroke-width: 1.5; }
+      .unmatched { fill: #fff7ed; stroke: #fb923c; stroke-width: 1.5; }
+      .assets { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1; }
+      .tag { fill: #fff7ed; stroke: #f59e0b; stroke-width: 1; }
+      .edge { fill: none; stroke: #d97706; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#dashArrow); }
+      .active { fill: none; stroke: #15803d; stroke-width: 2.5; marker-end: url(#activeArrow); }
+      .faint { fill: none; stroke: #cbd5e1; stroke-width: 1.5; marker-end: url(#arrow); }
+      .divider { stroke: #e2e8f0; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1760" height="1350" fill="#ffffff"/>
+  <text x="54" y="56" class="title">JOBNEX | Backend–Frontend Linkage</text>
+  <text x="54" y="84" class="subtitle">AST route/model inventory • FastAPI main app + separate referral app • Figma-ready vector diagram</text>
+  <rect x="54" y="104" width="1652" height="48" rx="10" class="tag"/>
+  <text x="72" y="125" class="cardtitle" fill="#166534">LOCAL DEMO: analyzer, job search, application queue and application list call a working local API.</text>
+  <text x="72" y="142" class="small">Green solid arrows are active demo connections; amber dashed arrows remain recommended, unwired production mappings.</text>
+
+  <text x="64" y="193" class="section">FRONTEND PAGES</text>
+  <text x="635" y="193" class="section">BACKEND ROUTES / HANDLERS</text>
+  <text x="1328" y="193" class="section">INPUT → RESPONSE</text>
+  <line x1="590" y1="177" x2="590" y2="1240" class="divider"/>
+  <line x1="1295" y1="177" x2="1295" y2="1240" class="divider"/>
+
+  <!-- Frontend cards -->
+  <g>
+    <rect x="54" y="218" width="500" height="92" rx="12" class="front"/>
+    <text x="72" y="243" class="cardtitle">login.html</text>
+    <text x="72" y="263" class="body">No auth endpoint in the main backend; demo session only.</text>
+    <rect x="72" y="275" width="442" height="23" rx="6" class="assets"/>
+    <text x="84" y="291" class="small">common.css + common.js</text>
+
+    <rect x="54" y="326" width="500" height="112" rx="12" class="front"/>
+    <text x="72" y="351" class="cardtitle">analyzer.html</text>
+    <text x="72" y="371" class="body">Resume + job description input; history and learning-resource views.</text>
+    <rect x="72" y="386" width="442" height="38" rx="6" class="assets"/>
+    <text x="84" y="402" class="small">common.css + common.js</text>
+    <text x="84" y="417" class="small">optional hook: analyzeResume({resumeText, jdText})</text>
+
+    <rect x="54" y="454" width="500" height="112" rx="12" class="front"/>
+    <text x="72" y="479" class="cardtitle">jobs.html</text>
+    <text x="72" y="499" class="body">Search, screening filters, queue an application, approve/send.</text>
+    <rect x="72" y="514" width="442" height="38" rx="6" class="assets"/>
+    <text x="84" y="530" class="small">common.css + common.js</text>
+    <text x="84" y="545" class="small">currently hard-coded sample jobs; Apply saves locally</text>
+
+    <rect x="54" y="582" width="500" height="102" rx="12" class="front"/>
+    <text x="72" y="607" class="cardtitle">dashboard.html</text>
+    <text x="72" y="627" class="body">Summary counts + recent application list.</text>
+    <rect x="72" y="641" width="442" height="29" rx="6" class="assets"/>
+    <text x="84" y="660" class="small">common.css + common.js • current data: local storage</text>
+
+    <rect x="54" y="700" width="500" height="102" rx="12" class="front"/>
+    <text x="72" y="725" class="cardtitle">applications.html</text>
+    <text x="72" y="745" class="body">Tracker list/status + referral-email draft UI.</text>
+    <rect x="72" y="759" width="442" height="29" rx="6" class="assets"/>
+    <text x="84" y="778" class="small">common.css + common.js • current data: local storage</text>
+
+    <rect x="54" y="818" width="500" height="102" rx="12" class="front"/>
+    <text x="72" y="843" class="cardtitle">chatbot.html</text>
+    <text x="72" y="863" class="body">Message input/history; backend response needs adapter normalization.</text>
+    <rect x="72" y="877" width="442" height="29" rx="6" class="assets"/>
+    <text x="84" y="896" class="small">common.css + common.js • optional chat hook, else scripted reply</text>
+
+    <rect x="54" y="936" width="500" height="102" rx="12" class="front"/>
+    <text x="72" y="961" class="cardtitle">courses.html + interveiw.html</text>
+    <text x="72" y="981" class="body">Resource suggestions and interview-prep page.</text>
+    <rect x="72" y="995" width="442" height="29" rx="6" class="assets"/>
+    <text x="84" y="1014" class="small">common.css + common.js • currently sample/static content</text>
+
+    <rect x="54" y="1054" width="500" height="102" rx="12" class="front"/>
+    <text x="72" y="1079" class="cardtitle">privacy.html</text>
+    <text x="72" y="1099" class="body">Local privacy preferences; API redaction/deletion not exposed.</text>
+    <rect x="72" y="1113" width="442" height="29" rx="6" class="assets"/>
+    <text x="84" y="1132" class="small">common.css + common.js</text>
+
+    <rect x="54" y="1172" width="500" height="72" rx="12" class="assets"/>
+    <text x="72" y="1197" class="cardtitle">Separate prototype: frontend/index1.html</text>
+    <text x="72" y="1218" class="small">Uses root style.css + script.js; not the page set above.</text>
+  </g>
+
+  <!-- Backend route groups -->
+  <g>
+    <rect x="625" y="218" width="635" height="132" rx="12" class="backend"/>
+    <text x="645" y="243" class="cardtitle">main.py | Resume analysis</text>
+    <text x="645" y="265" class="route">POST /api/analyze  •  POST /api/analyse (alias)</text>
+    <text x="645" y="285" class="route">GET /api/analyses</text>
+    <text x="645" y="315" class="body">analyze() → analysis result; get_analyses() → recent history</text>
+    <text x="645" y="334" class="small">Calls analyzer.py; saves analysis; resume is redacted before persistence.</text>
+
+    <rect x="625" y="368" width="635" height="164" rx="12" class="backend"/>
+    <text x="645" y="393" class="cardtitle">main.py | Jobs + auto-apply</text>
+    <text x="645" y="415" class="route">GET /api/jobs/search?keyword=&amp;limit=</text>
+    <text x="645" y="435" class="route">POST /api/applications  •  GET /api/applications</text>
+    <text x="645" y="455" class="route">POST /api/applications/{application_id}/approve</text>
+    <text x="645" y="482" class="body">search_jobs → {jobs}; queue_application → queued result;</text>
+    <text x="645" y="501" class="body">get_applications → {applications}; approve_application → send result.</text>
+    <text x="645" y="520" class="small">Uses job_fetcher.py, auto_apply.py, apply_db.py.</text>
+
+    <rect x="625" y="550" width="635" height="144" rx="12" class="backend"/>
+    <text x="645" y="575" class="cardtitle">application_dashboard.py | Application tracker</text>
+    <text x="645" y="597" class="route">/dashboard/applications [GET, POST]</text>
+    <text x="645" y="617" class="route">/dashboard/applications/{app_id} [GET]</text>
+    <text x="645" y="637" class="route">/dashboard/applications/{app_id}/status [PATCH]</text>
+    <text x="645" y="657" class="route">/dashboard/applications/{app_id}/history [GET] • /dashboard/summary [GET]</text>
+    <text x="645" y="680" class="small">X-User-Id required; paginated tracker data differs from auto-apply API.</text>
+
+    <rect x="625" y="712" width="635" height="122" rx="12" class="backend"/>
+    <text x="645" y="737" class="cardtitle">Chat / learning / interview routers</text>
+    <text x="645" y="759" class="route">POST /api/chat • DELETE /api/chat/{session_id}</text>
+    <text x="645" y="779" class="route">POST /api/resources • GET /api/resources/{analysis_id}</text>
+    <text x="645" y="799" class="route">POST /api/interview/resources</text>
+    <text x="645" y="821" class="small">Chat payload/result and current UI hook require field-name adaptation.</text>
+
+    <rect x="625" y="852" width="635" height="122" rx="12" class="backend"/>
+    <text x="645" y="877" class="cardtitle">Privacy + screening</text>
+    <text x="645" y="899" class="route">POST /api/privacy/redact • DELETE /api/privacy/analysis/{analysis_id}</text>
+    <text x="645" y="919" class="route">POST /api/filters/check • POST /api/filters/filter</text>
+    <text x="645" y="943" class="small">Screening stores redacted checks; bulk filter persists IDs/counts, not resume text.</text>
+
+    <rect x="625" y="992" width="635" height="126" rx="12" class="unmatched"/>
+    <text x="645" y="1017" class="cardtitle">No corresponding current page</text>
+    <text x="645" y="1039" class="route">GET/PUT /api/daily/settings • POST /api/daily/run</text>
+    <text x="645" y="1059" class="route">GET /api/daily/jobs</text>
+    <text x="645" y="1085" class="small">Standalone referral app: /candidates, /jobs, /referrals, /run-matching,</text>
+    <text x="645" y="1102" class="small">/email-logs, /email-templates and related ID routes; not mounted by main.py.</text>
+
+    <rect x="625" y="1136" width="635" height="108" rx="12" class="assets"/>
+    <text x="645" y="1161" class="cardtitle">Shared data / support modules</text>
+    <text x="645" y="1183" class="small">demo_fastapi.py (active local API) • demo_server.py (stdlib fallback)</text>
+    <text x="645" y="1202" class="small">database.py • daily_db.py • dashboard_db.py • resource_db.py</text>
+    <text x="645" y="1221" class="small">analyzer.py • auto_apply.py • daily_jobs.py • daily_scheduler.py</text>
+  </g>
+
+  <!-- Data contracts -->
+  <g>
+    <rect x="1320" y="218" width="384" height="132" rx="12" class="assets"/>
+    <text x="1340" y="243" class="cardtitle">AnalyzeRequest</text>
+    <text x="1340" y="265" class="body">resume_text + jd_text</text>
+    <text x="1340" y="287" class="body">→ Analysis_Id, matched_score</text>
+    <text x="1340" y="307" class="body">matched_skills[], missing_skills[],</text>
+    <text x="1340" y="327" class="body">suggestions[]</text>
+
+    <rect x="1320" y="368" width="384" height="164" rx="12" class="assets"/>
+    <text x="1340" y="393" class="cardtitle">Job / application flow</text>
+    <text x="1340" y="415" class="body">Query keyword, limit</text>
+    <text x="1340" y="435" class="body">→ {jobs:[...]}</text>
+    <text x="1340" y="455" class="body">resume_text, job_title, company,</text>
+    <text x="1340" y="475" class="body">job_description, optional job_url,</text>
+    <text x="1340" y="495" class="body">apply_email → queued application</text>
+    <text x="1340" y="515" class="small">HTTP errors include 409 / 422 / 502.</text>
+
+    <rect x="1320" y="550" width="384" height="144" rx="12" class="assets"/>
+    <text x="1340" y="575" class="cardtitle">Dashboard contract</text>
+    <text x="1340" y="597" class="body">X-User-Id + page/filter query</text>
+    <text x="1340" y="617" class="body">→ {items,total,page,page_size}</text>
+    <text x="1340" y="637" class="body">ApplicationCreate / StatusUpdate</text>
+    <text x="1340" y="657" class="body">→ application/status/history/summary</text>
+    <text x="1340" y="680" class="small">Not interchangeable with auto-apply list shape.</text>
+
+    <rect x="1320" y="712" width="384" height="122" rx="12" class="assets"/>
+    <text x="1340" y="737" class="cardtitle">Chat / resources</text>
+    <text x="1340" y="759" class="body">message, session_id?, analysis?, use_ai?</text>
+    <text x="1340" y="779" class="body">→ reply, intent/topic, resources,</text>
+    <text x="1340" y="799" class="body">quick_replies, source</text>
+    <text x="1340" y="821" class="small">UI adapter should map reply → displayed text.</text>
+
+    <rect x="1320" y="852" width="384" height="122" rx="12" class="assets"/>
+    <text x="1340" y="877" class="cardtitle">Privacy / filter</text>
+    <text x="1340" y="899" class="body">resume_text, jd_text, resumes[],</text>
+    <text x="1340" y="919" class="body">thresholds/certifications → redacted text,</text>
+    <text x="1340" y="939" class="body">check result or matched candidates</text>
+    <text x="1340" y="961" class="small">Validate minimums and errors in UI.</text>
+
+    <rect x="1320" y="992" width="384" height="126" rx="12" class="assets"/>
+    <text x="1340" y="1017" class="cardtitle">Daily / referral outputs</text>
+    <text x="1340" y="1039" class="body">Settings and scheduled run options</text>
+    <text x="1340" y="1059" class="body">→ date, score, count, hidden_below_min,</text>
+    <text x="1340" y="1079" class="body">jobs[]; referral app → candidate/job/log</text>
+    <text x="1340" y="1101" class="small">No matching page in this frontend.</text>
+
+    <rect x="1320" y="1136" width="384" height="108" rx="12" class="tag"/>
+    <text x="1340" y="1161" class="cardtitle">End-to-end flow</text>
+    <text x="1340" y="1183" class="body">User input → page JS validation → JSON</text>
+    <text x="1340" y="1203" class="body">request → FastAPI handler → service/DB</text>
+    <text x="1340" y="1223" class="body">→ JSON response/error → UI state/results</text>
+  </g>
+
+  <!-- Recommended mappings (dashed to indicate not active) -->
+  <path d="M554 382 C585 382 594 282 625 282" class="active"/>
+  <path d="M554 510 C590 510 591 445 625 445" class="active"/>
+  <path d="M554 632 C590 632 592 615 625 615" class="edge"/>
+  <path d="M554 750 C590 750 591 445 625 445" class="active"/>
+  <path d="M554 868 C590 868 591 760 625 760" class="edge"/>
+  <path d="M554 980 C590 980 591 790 625 790" class="edge"/>
+  <path d="M554 1100 C590 1100 591 908 625 908" class="edge"/>
+  <path d="M1260 284 C1285 284 1290 284 1320 284" class="faint"/>
+  <path d="M1260 450 C1285 450 1290 450 1320 450" class="faint"/>
+  <path d="M1260 620 C1285 620 1290 620 1320 620" class="faint"/>
+  <path d="M1260 775 C1285 775 1290 775 1320 775" class="faint"/>
+  <path d="M1260 912 C1285 912 1290 912 1320 912" class="faint"/>
+
+  <line x1="54" y1="1272" x2="100" y2="1272" class="active"/>
+  <text x="112" y="1277" class="small">Active local demo connection</text>
+  <line x1="340" y1="1272" x2="386" y2="1272" class="edge"/>
+  <text x="398" y="1277" class="small">Recommended, not yet wired</text>
+  <line x1="470" y1="1272" x2="516" y2="1272" class="faint"/>
+  <text x="528" y="1277" class="small">Contract/data flow</text>
+  <text x="54" y="1312" class="small">Active routes are in demo_fastapi.py (FastAPI + in-memory SQLite); main.py routes use production MySQL. Pages load common.css/common.js and selected pages api.js.</text>
+</svg>

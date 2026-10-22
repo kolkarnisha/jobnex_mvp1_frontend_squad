@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applications – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="applications">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Applications</h1>
+<section class="card" id="applied-jobs" aria-labelledby="apps-heading">
+  <h2 id="apps-heading">Your applications</h2>
+  <p id="app-msg" role="status" class="muted"></p>
+  <div class="table-wrap">
+    <table>
+      <caption class="visually-hidden">Your job applications</caption>
+      <thead><tr><th scope="col">Company</th><th scope="col">Role</th><th scope="col">Date applied</th><th scope="col">Status</th><th scope="col">Update status</th><th scope="col">Actions</th></tr></thead>
+      <tbody id="apps-body"></tbody>
+    </table>
+  </div>
+</section>
+<section class="card" id="referral" aria-labelledby="ref-heading">
+  <h2 id="ref-heading">Referral Email Generator</h2>
+  <p class="note">This only writes a draft. JOBNEX never sends email: review it, add the recipient yourself and send it from your own email service.</p>
+  <form id="referral-form" novalidate>
+    <label for="ref-app">Fill from an application (optional)</label>
+    <select id="ref-app"><option value="">Choose an application</option></select>
+    <div class="two-col">
+      <div><label for="recruiter-name">Recruiter Name</label><input type="text" id="recruiter-name" autocomplete="off"></div>
+      <div><label for="your-name">Your name</label><input type="text" id="your-name" autocomplete="name"></div>
+      <div><label for="company-name">Company Name</label><input type="text" id="company-name" required aria-describedby="company-name-error"><p class="field-error" id="company-name-error"></p></div>
+      <div><label for="job-role">Job Role</label><input type="text" id="job-role" required aria-describedby="job-role-error"><p class="field-error" id="job-role-error"></p></div>
+    </div>
+    <label for="your-background">Your background (optional, one or two sentences)</label>
+    <textarea id="your-background" style="min-height:5rem" placeholder="My background includes..."></textarea>
+    <button type="submit" id="generate-referral">Generate</button>
+  </form>
+  <div id="referral-output" hidden>
+    <label for="ref-subject">Subject</label><input type="text" id="ref-subject">
+    <label for="ref-body">Body</label><textarea id="ref-body" style="min-height:15rem"></textarea>
+    <button type="button" class="secondary" id="copy-referral">Copy</button>
+    <p id="copy-msg" role="status"></p>
+  </div>
+</section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="api.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

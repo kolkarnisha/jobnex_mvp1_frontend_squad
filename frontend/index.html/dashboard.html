@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="dashboard">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Dashboard</h1>
+<p class="muted">Your application activity at a glance. <span class="badge-demo">Sample data</span></p>
+<dl class="stats" id="dashboard-summary">
+  <div class="stat blue"><dt>Jobs Applied</dt><dd id="stat-applied">0</dd></div>
+  <div class="stat orange"><dt>Interviews</dt><dd id="stat-interview">0</dd></div>
+  <div class="stat green"><dt>Offers</dt><dd id="stat-offer">0</dd></div>
+  <div class="stat red"><dt>Rejected</dt><dd id="stat-rejected">0</dd></div>
+</dl>
+<section class="card" id="applied-jobs" aria-labelledby="recent-heading">
+  <h2 id="recent-heading">Recent Applications</h2>
+  <div class="table-wrap">
+    <table>
+      <caption class="visually-hidden">Your five most recent job applications</caption>
+      <thead><tr><th scope="col">Company</th><th scope="col">Role</th><th scope="col">Date applied</th><th scope="col">Status</th></tr></thead>
+      <tbody id="recent-body"></tbody>
+    </table>
+  </div>
+  <p><a href="applications.html">Manage all applications</a></p>
+</section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="common.js"></script>
+</body>
+</html>

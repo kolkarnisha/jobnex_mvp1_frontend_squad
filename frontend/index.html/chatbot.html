@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assistant – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="chatbot">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>AI Assistant</h1>
+<p class="note"><strong>Demo mode:</strong> replies are scripted examples, not from a live AI. Connect <code>window.JOBNEX_API.chat</code> to use a real service through your own backend.</p>
+<div class="chat-layout">
+  <aside class="card" aria-labelledby="hist-h">
+    <h2 id="hist-h">Conversation history</h2>
+    <ul class="plain" id="history-list"></ul>
+    <button type="button" class="danger sm" id="clear-history">Clear history</button>
+  </aside>
+  <section class="card chat-card" aria-labelledby="chat-h">
+    <h2 id="chat-h" class="visually-hidden">Chat</h2>
+    <div id="chat-window" class="chat-log" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+    <p id="typing" class="typing" role="status" hidden><i></i><i></i><i></i> Assistant is typing…</p>
+    <form id="chat-form" class="chat-row">
+      <label for="chat-input" class="visually-hidden">Your message</label>
+      <input type="text" id="chat-input" name="chat-input" placeholder="Type your question here" autocomplete="off">
+      <button type="submit" id="chat-send">Send</button>
+    </form>
+  </section>
+  <aside class="card" aria-labelledby="qa-h">
+    <h2 id="qa-h">Quick actions</h2>
+    <div class="stack">
+      <button type="button" class="secondary" data-quick>Improve Resume</button>
+      <button type="button" class="secondary" data-quick>Suggest Skills</button>
+      <button type="button" class="secondary" data-quick>Career Guidance</button>
+      <button type="button" class="secondary" data-quick>Mock Interview</button>
+    </div>
+  </aside>
+</div>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="common.js"></script>
+</body>
+</html>

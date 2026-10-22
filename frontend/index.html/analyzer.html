@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Analyzer – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="analyzer">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Resume Analyzer</h1>
+<p class="note">Local demo: submit both fields to send a request to the backend analyzer and receive a stored result.</p>
+<form id="analyze-form" novalidate>
+  <div class="two-col">
+    <section class="card" aria-label="Resume">
+      <label for="resume_text">Give resume</label>
+      <textarea id="resume_text" placeholder="Paste your resume here" required aria-describedby="resume_text-error"></textarea>
+      <p class="field-error" id="resume_text-error"></p>
+    </section>
+    <section class="card" aria-label="Job description">
+      <label for="jd_text">Give job description</label>
+      <textarea id="jd_text" placeholder="Paste your JD here" required aria-describedby="jd_text-error"></textarea>
+      <p class="field-error" id="jd_text-error"></p>
+    </section>
+  </div>
+  <button type="submit" id="analyze-button">Analyze Resume</button>
+</form>
+<p id="status" role="status"></p>
+<section id="results" class="card" aria-labelledby="results-heading" hidden>
+  <h2 id="results-heading">Analyze results</h2>
+  <pre id="result-data"></pre>
+</section>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="api.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

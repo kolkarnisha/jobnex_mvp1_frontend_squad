@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep – JOBNEX</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body data-page="interview">
+<a class="skip" href="#main">Skip to main content</a>
+<header id="site-header" class="site-header"></header>
+<main id="main" class="container">
+<h1>Interview Prep</h1>
+<p class="muted">Practice with a built-in question set. Open the tips to see how to structure your answer.</p>
+<div role="tablist" aria-label="Question categories">
+  <button type="button" role="tab" id="tab-technical" data-cat="technical" aria-selected="true" aria-controls="interview-panel">Technical</button>
+  <button type="button" role="tab" id="tab-behavioral" data-cat="behavioral" aria-selected="false" aria-controls="interview-panel" tabindex="-1">Behavioral</button>
+  <button type="button" role="tab" id="tab-hr" data-cat="hr" aria-selected="false" aria-controls="interview-panel" tabindex="-1">HR</button>
+  <button type="button" role="tab" id="tab-system" data-cat="system" aria-selected="false" aria-controls="interview-panel" tabindex="-1">System Design</button>
+</div>
+<section id="interview-panel" role="tabpanel" aria-labelledby="tab-technical">
+  <ol id="interview-questions" class="q-list"></ol>
+</section>
+<button type="button" id="generate-questions">Generate Questions</button>
+<p id="interview-status" role="status" class="muted"></p>
+</main>
+<footer id="site-footer" class="site-footer"></footer>
+<script src="common.js"></script>
+</body>
+</html>

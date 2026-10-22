@@ -1,0 +1,1146 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOBNEX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ===================== SITE HEADER & NAVIGATION ===================== -->
+    <header class="site-header">
+        <h1>WELCOME TO JOBNEX</h1>
+        <p>Get ready to see how well your resume fits a given job description.</p>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="#analyzer">Resume Analyzer</a></li>
+                <li><a href="#filters">Filters</a></li>
+                <li><a href="#assistant">Assistant</a></li>
+                <li><a href="#interview-prep">Interview Prep</a></li>
+                <li><a href="#learning">Courses</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#automation">Automation</a></li>
+                <li><a href="#account">Account</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- ===================== MVP-1: RESUME ANALYZER (existing IDs preserved for script.js) ===================== -->
+        <section id="analyzer" aria-labelledby="analyzer-heading">
+            <h2 id="analyzer-heading">Resume Analyzer</h2>
+
+            <form id="analyze-form">
+                <label for="resume_text">Give resume</label>
+                <textarea id="resume_text" placeholder="Paste your resume here" required></textarea>
+
+                <label for="jd_text">Give job description</label>
+                <textarea id="jd_text" placeholder="Paste your JD here" required></textarea>
+
+                <button type="submit" id="analyze-button">Analyze resume</button>
+            </form>
+
+            <p id="status" role="status"></p>
+
+            <section id="results" hidden>
+                <h3>Analyze results</h3>
+                <pre id="result-data"></pre>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 1 & 4: FILTERS ===================== -->
+        <section id="filters" aria-labelledby="filters-heading">
+            <h2 id="filters-heading">Job Filters</h2>
+
+            <!-- Feature 1: Certifications & experience -->
+            <section id="cert-experience-filters" aria-labelledby="cert-exp-heading">
+                <h3 id="cert-exp-heading">Certifications &amp; Experience Filters</h3>
+
+                <form id="cert-exp-form">
+                    <fieldset>
+                        <legend>Certifications</legend>
+                        <label><input type="checkbox" name="certification" value="aws"> AWS Certified</label>
+                        <label><input type="checkbox" name="certification" value="azure"> Microsoft Azure</label>
+                        <label><input type="checkbox" name="certification" value="gcp"> Google Cloud</label>
+                        <label><input type="checkbox" name="certification" value="pmp"> PMP</label>
+                        <label><input type="checkbox" name="certification" value="scrum"> Scrum Master</label>
+                        <label><input type="checkbox" name="certification" value="other"> Other</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Experience level</legend>
+                        <label><input type="radio" name="experience" value="fresher" checked> Fresher (0–1 yrs)</label>
+                        <label><input type="radio" name="experience" value="junior"> Junior (1–3 yrs)</label>
+                        <label><input type="radio" name="experience" value="mid"> Mid-level (3–6 yrs)</label>
+                        <label><input type="radio" name="experience" value="senior"> Senior (6+ yrs)</label>
+                    </fieldset>
+
+                    <label for="experience-years">Minimum years of experience</label>
+                    <input type="number" id="experience-years" name="experience-years" min="0" max="40" placeholder="e.g. 2">
+
+                    <button type="button" id="apply-cert-exp-filters">Apply filters</button>
+                </form>
+            </section>
+
+            <!-- Feature 4: Region filters -->
+            <section id="region-filters" aria-labelledby="region-heading">
+                <h3 id="region-heading">Region Filters</h3>
+
+                <form id="region-form">
+                    <fieldset>
+                        <legend>Job region</legend>
+                        <label><input type="radio" name="region" value="us"> United States</label>
+                        <label><input type="radio" name="region" value="global" checked> Global</label>
+                        <label><input type="radio" name="region" value="india"> India</label>
+                        <label><input type="radio" name="region" value="bengaluru"> Bengaluru</label>
+                    </fieldset>
+
+                    <button type="button" id="apply-region-filter">Apply region</button>
+                </form>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 2: AI ASSISTANT ===================== -->
+        <section id="assistant" aria-labelledby="assistant-heading">
+            <h2 id="assistant-heading">AI Career Assistant</h2>
+            <p>Ask questions about your resume, job fit, or next steps. <em>(Coming soon)</em></p>
+
+            <div id="chat-window" role="log" aria-live="polite" aria-label="Chat conversation">
+                <article class="chat-message chat-message-assistant">
+                    <p><strong>Assistant:</strong> Hi! Ask me how to improve your resume for a specific role.</p>
+                </article>
+                <article class="chat-message chat-message-user">
+                    <p><strong>You:</strong> <em>Your messages will appear here.</em></p>
+                </article>
+            </div>
+
+            <form id="chat-form">
+                <label for="chat-input">Your message</label>
+                <input type="text" id="chat-input" name="chat-input" placeholder="Type your question here" disabled>
+                <button type="button" id="chat-send" disabled>Send</button>
+            </form>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 3: INTERVIEW PREP ===================== -->
+        <section id="interview-prep" aria-labelledby="interview-heading">
+            <h2 id="interview-heading">Interview Preparation</h2>
+            <p>Practice questions tailored to your resume and the job description.</p>
+
+            <form id="interview-form">
+                <label for="interview-category">Question category</label>
+                <select id="interview-category" name="interview-category">
+                    <option value="technical">Technical</option>
+                    <option value="behavioral">Behavioral</option>
+                    <option value="hr">HR / Culture fit</option>
+                    <option value="situational">Situational</option>
+                </select>
+
+                <button type="button" id="generate-questions">Generate questions</button>
+            </form>
+
+            <ol id="interview-questions">
+                <li>
+                    <p>Tell me about yourself and your most relevant experience.</p>
+                    <details>
+                        <summary>Tips for answering</summary>
+                        <p>Placeholder: answer guidance will appear here.</p>
+                    </details>
+                </li>
+                <li>
+                    <p>Describe a challenging project and how you handled it.</p>
+                    <details>
+                        <summary>Tips for answering</summary>
+                        <p>Placeholder: answer guidance will appear here.</p>
+                    </details>
+                </li>
+                <li>
+                    <p>Why are you interested in this role?</p>
+                    <details>
+                        <summary>Tips for answering</summary>
+                        <p>Placeholder: answer guidance will appear here.</p>
+                    </details>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 5: COURSES & RESOURCES ===================== -->
+        <section id="learning" aria-labelledby="learning-heading">
+            <h2 id="learning-heading">Suggested Courses &amp; Resources</h2>
+            <p>Close your skill gaps with recommendations based on missing skills in your analysis.</p>
+
+            <section id="missing-skills" aria-labelledby="missing-skills-heading">
+                <h3 id="missing-skills-heading">Missing Skills</h3>
+                <ul>
+                    <li>Skill placeholder 1</li>
+                    <li>Skill placeholder 2</li>
+                    <li>Skill placeholder 3</li>
+                </ul>
+            </section>
+
+            <section id="course-list" aria-labelledby="course-list-heading">
+                <h3 id="course-list-heading">Recommended Learning</h3>
+
+                <article class="course-card">
+                    <h4>Course title placeholder</h4>
+                    <p>Provider: <em>Provider name</em> · Level: <em>Beginner</em></p>
+                    <a href="#" class="course-link">View course</a>
+                </article>
+
+                <article class="course-card">
+                    <h4>Tutorial / article placeholder</h4>
+                    <p>Type: <em>Free resource</em></p>
+                    <a href="#" class="course-link">Open resource</a>
+                </article>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 6: APPLICATION DASHBOARD ===================== -->
+        <section id="dashboard" aria-labelledby="dashboard-heading">
+            <h2 id="dashboard-heading">Applications Dashboard</h2>
+            <p>Track every job you have applied to and update its status.</p>
+
+            <section id="dashboard-summary" aria-labelledby="summary-heading">
+                <h3 id="summary-heading">Summary</h3>
+                <dl>
+                    <dt>Applied</dt>
+                    <dd>0</dd>
+                    <dt>Interviewing</dt>
+                    <dd>0</dd>
+                    <dt>Offers</dt>
+                    <dd>0</dd>
+                    <dt>Rejected</dt>
+                    <dd>0</dd>
+                </dl>
+            </section>
+
+            <section id="applied-jobs" aria-labelledby="applied-jobs-heading">
+                <h3 id="applied-jobs-heading">Applied Jobs</h3>
+
+                <table>
+                    <caption>Your job applications</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Company</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Date applied</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Update status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Company name</td>
+                            <td>Job title</td>
+                            <td><time datetime="2025-01-01">01 Jan 2025</time></td>
+                            <td>Applied</td>
+                            <td>
+                                <label for="status-row-1" class="visually-hidden">Status for Company name</label>
+                                <select id="status-row-1" name="status-row-1">
+                                    <option>Applied</option>
+                                    <option>Interviewing</option>
+                                    <option>Offer</option>
+                                    <option>Rejected</option>
+                                    <option>Withdrawn</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURES 7 & 8: AUTOMATION ===================== -->
+        <section id="automation" aria-labelledby="automation-heading">
+            <h2 id="automation-heading">Automation</h2>
+
+            <!-- Feature 7: Auto apply -->
+            <section id="auto-apply" aria-labelledby="auto-apply-heading">
+                <h3 id="auto-apply-heading">Automatic Job Apply</h3>
+                <p>Let JOBNEX apply to matching jobs for you. <em>(Placeholder – not active yet)</em></p>
+
+                <form id="auto-apply-form">
+                    <label><input type="checkbox" id="auto-apply-toggle" name="auto-apply" disabled> Enable automatic apply</label>
+
+                    <label for="auto-apply-threshold">Minimum match score</label>
+                    <input type="range" id="auto-apply-threshold" name="auto-apply-threshold" min="50" max="100" value="75" disabled>
+
+                    <label for="auto-apply-limit">Maximum applications per day</label>
+                    <input type="number" id="auto-apply-limit" name="auto-apply-limit" min="1" max="50" value="5" disabled>
+
+                    <button type="button" id="save-auto-apply" disabled>Save settings</button>
+                </form>
+            </section>
+
+            <!-- Feature 8: Auto refusal emails -->
+            <section id="auto-refusal" aria-labelledby="auto-refusal-heading">
+                <h3 id="auto-refusal-heading">Automatic Job Refusal Emails</h3>
+                <p>Send polite decline emails when you reject or withdraw from a role. <em>(Placeholder – not active yet)</em></p>
+
+                <form id="auto-refusal-form">
+                    <label><input type="checkbox" id="auto-refusal-toggle" name="auto-refusal" disabled> Enable automatic refusal emails</label>
+
+                    <label for="refusal-template">Email template</label>
+                    <textarea id="refusal-template" name="refusal-template" disabled>Dear [Recruiter name],
+
+Thank you for the opportunity to interview for [Job title] at [Company]. After careful consideration, I have decided to withdraw my application.
+
+Best regards,
+[Your name]</textarea>
+
+                    <button type="button" id="save-auto-refusal" disabled>Save template</button>
+                </form>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 9: ACCOUNT / LOGIN ===================== -->
+        <section id="account" aria-labelledby="account-heading">
+            <h2 id="account-heading">Sign In</h2>
+
+            <section id="social-login" aria-labelledby="social-login-heading">
+                <h3 id="social-login-heading">Continue with</h3>
+                <button type="button" id="google-login">Sign in with Google</button>
+            </section>
+
+            <section id="direct-login" aria-labelledby="direct-login-heading">
+                <h3 id="direct-login-heading">Sign in with email</h3>
+
+                <form id="login-form">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+
+                    <button type="submit" id="login-button">Log in</button>
+                </form>
+
+                <p>New to JOBNEX? <a href="#register">Create an account</a></p>
+                <p><a href="#forgot-password">Forgot password?</a></p>
+            </section>
+        </section>
+
+        <!-- ===================== MVP-2 · FEATURE 10: RESUME PRIVACY ===================== -->
+        <section id="privacy" aria-labelledby="privacy-heading">
+            <h2 id="privacy-heading">Resume Privacy Settings</h2>
+
+            <form id="privacy-form">
+                <fieldset>
+                    <legend>Who can view your resume?</legend>
+
+                    <label>
+                        <input type="radio" name="resume-visibility" value="private" checked>
+                        Private – only you can see it
+                    </label>
+                    <label>
+                        <input type="radio" name="resume-visibility" value="public">
+                        Public – recruiters can find and view it
+                    </label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Public profile options</legend>
+                    <label><input type="checkbox" name="hide-contact"> Hide phone number and email</label>
+                    <label><input type="checkbox" name="allow-download"> Allow recruiters to download</label>
+                </fieldset>
+
+                <button type="button" id="save-privacy">Save privacy settings</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+        <nav aria-label="Footer navigation">
+            <ul>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#account">Sign in</a></li>
+                <li><a href="#assistant">Help</a></li>
+            </ul>
+        </nav>
+        <p><small>&copy; 2025 JOBNEX. All rights reserved.</small></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html> -->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOBNEX</title>
+    <!-- All styles live here so the project stays one file. If you still have style.css, you can drop it. -->
+    <style>
+        :root { --ink:#17212b; --mute:#52606b; --paper:#f3f6f5; --card:#fff; --line:#d3dbd8; --brand:#0f6b5f; --brand-d:#0a4f46; --err:#b42318; --ok:#0b6b3a; --focus:#1d4ed8; --warn-bg:#fff3d6; --warn:#6b4700; }
+        * { box-sizing: border-box; }
+        [hidden] { display: none !important; }
+        body { margin: 0; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--paper); }
+        h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5em; }
+        h2 { font-size: 1.6rem; } h3 { font-size: 1.15rem; }
+        h2:focus { outline: none; }
+        a { color: var(--brand); }
+        label { display: block; font-weight: 600; margin: .9rem 0 .25rem; }
+        fieldset label, label.inline { display: inline-flex; gap: .4rem; align-items: center; font-weight: 400; margin: .25rem 1rem .25rem 0; }
+        fieldset { border: 1px solid var(--line); border-radius: 8px; margin: .8rem 0; padding: .5rem 1rem .8rem; }
+        input, select, textarea { width: 100%; font: inherit; padding: .6rem .7rem; border: 1px solid #8a9792; border-radius: 8px; background: #fff; color: var(--ink); }
+        input[type=checkbox], input[type=radio] { width: auto; }
+        textarea { min-height: 9rem; resize: vertical; }
+        input:disabled, textarea:disabled, select:disabled { background: #eceff0; color: #6b7780; }
+        :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+        button, a.btn { display: inline-block; font: inherit; font-weight: 600; padding: .65rem 1.2rem; margin: .3rem .4rem .3rem 0; background: var(--brand); color: #fff; border: 2px solid var(--brand); border-radius: 8px; cursor: pointer; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.15); transition: background .15s; }
+        button:hover, a.btn:hover { background: var(--brand-d); border-color: var(--brand-d); }
+        button:active, a.btn:active { transform: translateY(1px); box-shadow: none; }
+        button:disabled { background: #9aa8a4; border-color: #9aa8a4; cursor: not-allowed; box-shadow: none; }
+        button.ghost, a.btn.ghost { background: #fff; color: var(--brand); }
+        button.ghost:hover, a.btn.ghost:hover { background: #e4f1ee; color: var(--brand-d); }
+        button.linkish { background: none; border: 0; color: var(--brand); text-decoration: underline; padding: .2rem 0; box-shadow: none; font-weight: 400; }
+        .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(23,33,43,.06); margin-bottom: 1.25rem; }
+        .muted { color: var(--mute); }
+        .err { display: block; color: var(--err); font-size: .9rem; min-height: 1.1em; }
+        .ok { color: var(--ok); }
+        .note { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: .5rem .8rem; font-size: .92rem; }
+        .badge { display: inline-block; background: var(--warn-bg); color: var(--warn); border-radius: 6px; padding: 0 .45rem; font-size: .78rem; font-weight: 600; }
+        .tag { display: inline-block; background: #e4f1ee; color: var(--brand-d); border-radius: 999px; padding: .05rem .65rem; font-size: .85rem; margin: 0 .35rem .3rem 0; }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        .grid4 { display: grid; gap: 0 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        .jobs-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+        .jobs-grid .card { margin: 0; display: flex; flex-direction: column; }
+        .jobs-grid .card button { align-self: flex-start; margin-top: auto; }
+        .spinner { width: 1.4rem; height: 1.4rem; border: 3px solid var(--line); border-top-color: var(--brand); border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: .5rem; animation: spin .8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } * { transition: none !important; } }
+
+        /* Login */
+        .login-wrap { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; padding: 2rem clamp(1rem, 6vw, 5rem); background: linear-gradient(135deg, #0c2f2b, #17212b); }
+        .login-wrap .hero { color: #fff; }
+        .login-wrap .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .01em; }
+        .login-wrap .hero p { font-size: 1.1rem; max-width: 34ch; }
+        .login-wrap .card { margin: 0; max-width: 460px; width: 100%; justify-self: center; }
+        .or { text-align: center; color: var(--mute); margin: .6rem 0 0; }
+
+        /* Shell */
+        .site-header { background: var(--ink); color: #fff; padding: .7rem clamp(1rem, 4vw, 2rem) 0; position: sticky; top: 0; z-index: 5; }
+        .bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+        .brand { font-size: 1.3rem; font-weight: 800; letter-spacing: .04em; margin: 0; }
+        .user { font-size: .9rem; display: flex; gap: .5rem; align-items: center; }
+        .user button { padding: .3rem .8rem; margin: 0; background: transparent; border-color: #fff; }
+        .user button:hover { background: #fff; color: var(--ink); }
+        nav ul { list-style: none; margin: .5rem 0 0; padding: 0; display: flex; gap: .25rem; overflow-x: auto; }
+        #main-nav a { display: block; white-space: nowrap; color: #d6e2de; text-decoration: none; padding: .55rem .9rem; border-bottom: 4px solid transparent; }
+        #main-nav a:hover { color: #fff; }
+        #main-nav a[aria-current=page] { color: #fff; font-weight: 700; border-bottom-color: #5fd0bd; }
+        .container { max-width: 1050px; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 2rem) 5.5rem; }
+        .pager { display: flex; justify-content: space-between; margin-top: 1.5rem; }
+        .site-footer { background: #e6ecea; padding: 1rem clamp(1rem, 4vw, 2rem); text-align: center; }
+        .site-footer ul { list-style: none; padding: 0; margin: 0 0 .5rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+        .site-footer button { margin: 0; }
+        table { width: 100%; border-collapse: collapse; }
+        caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+        th, td { text-align: left; padding: .6rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+        .table-wrap { overflow-x: auto; }
+        td select { min-width: 9rem; }
+        td button { padding: .35rem .7rem; font-size: .9rem; }
+        dl.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .8rem; margin: 0; }
+        dl.stats div { background: #e4f1ee; border-radius: 10px; padding: .6rem .9rem; }
+        dl.stats dt { font-size: .9rem; color: var(--mute); } dl.stats dd { margin: 0; font-size: 1.6rem; font-weight: 700; }
+        pre { white-space: pre-wrap; background: #f0f4f3; padding: 1rem; border-radius: 8px; }
+        .saved-item { display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding: .5rem 0; }
+
+        /* Chat */
+        .chat-log { height: 280px; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px; padding: .6rem; background: #f8faf9; }
+        .chat-msg { max-width: 88%; margin: .4rem 0; padding: .5rem .8rem; border-radius: 12px; white-space: pre-wrap; }
+        .chat-msg.user { margin-left: auto; background: var(--brand); color: #fff; }
+        .chat-msg.bot { background: #fff; border: 1px solid var(--line); }
+        .chips { margin: .5rem 0; }
+        .chips button { background: #fff; color: var(--brand); padding: .25rem .7rem; font-size: .88rem; border-radius: 999px; margin: .2rem .3rem .2rem 0; box-shadow: none; }
+        .chips button:hover { background: #e4f1ee; color: var(--brand-d); }
+        .chat-row { display: flex; gap: .5rem; align-items: flex-end; }
+        .chat-row input { flex: 1; } .chat-row button { margin: 0; }
+        #chat-fab { position: fixed; right: 1rem; bottom: 1rem; z-index: 20; border-radius: 999px; padding: .75rem 1.2rem; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+        #chat-panel { position: fixed; right: 1rem; bottom: 4.6rem; width: min(360px, calc(100vw - 2rem)); z-index: 20; margin: 0; padding: 1rem; box-shadow: 0 8px 28px rgba(0,0,0,.28); }
+        #chat-panel .chat-log { height: 240px; }
+        #chat-panel header { display: flex; justify-content: space-between; align-items: center; }
+        #chat-panel h2 { font-size: 1.05rem; margin: 0; }
+        #chat-panel header button { padding: .15rem .6rem; margin: 0; }
+
+        @media (max-width: 760px) { .login-wrap { grid-template-columns: 1fr; padding-top: 1.5rem; } .login-wrap .hero p { max-width: none; } h2 { font-size: 1.35rem; } }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===================== LOGIN (always shown first) ===================== -->
+    <div id="login-screen" class="login-wrap">
+        <section class="hero" aria-label="Welcome">
+            <h1>WELCOME TO JOBNEX</h1>
+            <p>Get ready to see how well your resume fits a given job description.</p>
+        </section>
+
+        <section id="account" class="card" aria-labelledby="account-heading">
+            <h2 id="account-heading">Sign in</h2>
+            <p class="note">Frontend demo only. Any valid email and a password of 8+ characters will open the demo. Nothing is sent to a server, checked or stored.</p>
+
+            <section id="social-login" aria-label="Social sign-in">
+                <button type="button" id="google-login" class="ghost">Sign in with Google</button>
+            </section>
+            <p class="or">or use email</p>
+
+            <section id="direct-login" aria-label="Email sign-in">
+                <form id="login-form" novalidate>
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="login-email-error">
+                    <span class="err" id="login-email-error"></span>
+
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" autocomplete="current-password" required aria-describedby="login-password-error">
+                    <span class="err" id="login-password-error"></span>
+
+                    <div id="confirm-row" hidden>
+                        <label for="login-confirm">Confirm password</label>
+                        <input type="password" id="login-confirm" name="confirm" autocomplete="new-password" aria-describedby="login-confirm-error">
+                        <span class="err" id="login-confirm-error"></span>
+                    </div>
+
+                    <p id="login-msg" role="status" class="muted"></p>
+                    <button type="submit" id="login-button">Log in</button>
+                    <button type="button" id="create-account" class="ghost">Create Account</button>
+                </form>
+                <p><button type="button" id="forgot-password" class="linkish">Forgot password?</button></p>
+            </section>
+        </section>
+    </div>
+
+    <!-- ===================== MAIN APP (shown after demo login) ===================== -->
+    <div id="app" hidden>
+
+        <header class="site-header">
+            <div class="bar">
+                <p class="brand">JOBNEX</p>
+                <p class="user"><span id="user-email"></span><button type="button" id="logout">Log out</button></p>
+            </div>
+            <nav aria-label="Main navigation"><ul id="main-nav"></ul></nav>
+        </header>
+
+        <main class="container" id="main">
+
+            <!-- ===== JOB SEARCH (landing page) ===== -->
+            <section id="jobs" class="page" aria-labelledby="jobs-heading" hidden>
+                <h2 id="jobs-heading" tabindex="-1">Job Search</h2>
+                <p class="note">Results come from a small list of sample jobs. Live job search needs a job-data service that is not connected.</p>
+
+                <form id="search-form" class="card" novalidate>
+                    <div class="grid4">
+                        <div><label for="job-keywords">Job title or keywords</label><input id="job-keywords" type="search" placeholder="e.g. developer, cloud"></div>
+                        <div><label for="job-company">Company</label><input id="job-company" type="search" placeholder="e.g. Northwind"></div>
+                        <div><label for="job-location">Location</label><input id="job-location" type="search" placeholder="e.g. Bengaluru, Remote"></div>
+                        <div><label for="job-region">Region</label>
+                            <select id="job-region" name="region">
+                                <option value="global" selected>Global</option>
+                                <option value="us">United States</option>
+                                <option value="india">India</option>
+                                <option value="bengaluru">Bengaluru</option>
+                            </select></div>
+                    </div>
+
+                    <details id="filters">
+                        <summary><strong>More filters</strong> (experience, certifications, job type)</summary>
+                        <section id="cert-experience-filters" aria-labelledby="cert-exp-heading">
+                            <h3 id="cert-exp-heading">Certifications &amp; Experience Filters</h3>
+                            <fieldset>
+                                <legend>Certifications</legend>
+                                <label><input type="checkbox" name="certification" value="aws"> AWS Certified</label>
+                                <label><input type="checkbox" name="certification" value="azure"> Microsoft Azure</label>
+                                <label><input type="checkbox" name="certification" value="gcp"> Google Cloud</label>
+                                <label><input type="checkbox" name="certification" value="pmp"> PMP</label>
+                                <label><input type="checkbox" name="certification" value="scrum"> Scrum Master</label>
+                                <label><input type="checkbox" name="certification" value="other"> Other</label>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Experience level</legend>
+                                <label><input type="radio" name="experience" value="any" checked> Any</label>
+                                <label><input type="radio" name="experience" value="fresher"> Fresher (0–1 yrs)</label>
+                                <label><input type="radio" name="experience" value="junior"> Junior (1–3 yrs)</label>
+                                <label><input type="radio" name="experience" value="mid"> Mid-level (3–6 yrs)</label>
+                                <label><input type="radio" name="experience" value="senior"> Senior (6+ yrs)</label>
+                            </fieldset>
+                            <div class="grid4">
+                                <div><label for="experience-years">My years of experience (shows jobs needing this or less)</label>
+                                    <input type="number" id="experience-years" name="experience-years" min="0" max="40" placeholder="e.g. 2"></div>
+                                <div><label for="job-type">Job type</label>
+                                    <select id="job-type" name="job-type">
+                                        <option value="">Any</option><option>Full-time</option><option>Part-time</option><option>Contract</option>
+                                    </select></div>
+                            </div>
+                            <button type="button" id="apply-cert-exp-filters" class="ghost">Apply filters</button>
+                        </section>
+                    </details>
+
+                    <button type="submit" id="search-button">Search Jobs</button>
+                    <button type="button" id="clear-search" class="ghost">Clear</button>
+                </form>
+
+                <div id="job-results" aria-live="polite"></div>
+            </section>
+
+            <!-- ===== RESUME ANALYZER (existing IDs preserved) ===== -->
+            <section id="analyzer" class="page" aria-labelledby="analyzer-heading" hidden>
+                <h2 id="analyzer-heading" tabindex="-1">Resume Analyzer</h2>
+                <form id="analyze-form" class="card">
+                    <p class="note">Demo analysis: a simple keyword comparison that runs in your browser. Connect your own analysis service in <code>analyzeResume()</code> in the script.</p>
+                    <label for="resume_text">Give resume</label>
+                    <textarea id="resume_text" placeholder="Paste your resume here" required></textarea>
+
+                    <label for="jd_text">Give job description</label>
+                    <textarea id="jd_text" placeholder="Paste your JD here" required></textarea>
+
+                    <button type="submit" id="analyze-button">Analyze Resume</button>
+                </form>
+                <p id="status" role="status"></p>
+                <section id="results" class="card" hidden>
+                    <h3>Analyze results</h3>
+                    <pre id="result-data"></pre>
+                </section>
+            </section>
+
+            <!-- ===== AI ASSISTANT ===== -->
+            <section id="assistant" class="page" aria-labelledby="assistant-heading" hidden>
+                <h2 id="assistant-heading" tabindex="-1">AI Career Assistant</h2>
+                <p>Ask about your resume, job fit, or next steps. <span class="badge">Demo mode</span> Replies are scripted examples, not from a live AI. The floating chat button shares this conversation.</p>
+                <div class="card">
+                    <div id="chat-window" class="chat-log" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+                    <div class="chips" data-chips></div>
+                    <form id="chat-form" class="chat-row">
+                        <div style="flex:1"><label for="chat-input">Your message</label>
+                            <input type="text" id="chat-input" name="chat-input" placeholder="Type your question here" autocomplete="off"></div>
+                        <button type="submit" id="chat-send">Send</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===== INTERVIEW PREP ===== -->
+            <section id="interview-prep" class="page" aria-labelledby="interview-heading" hidden>
+                <h2 id="interview-heading" tabindex="-1">Interview Preparation</h2>
+                <p>Practice questions by category. These are general sample questions, not tailored by AI.</p>
+                <form id="interview-form" class="card">
+                    <label for="interview-category">Question category</label>
+                    <select id="interview-category" name="interview-category">
+                        <option value="technical">Technical</option>
+                        <option value="behavioral">Behavioral</option>
+                        <option value="hr">HR / Culture fit</option>
+                        <option value="situational">Situational</option>
+                    </select>
+                    <button type="button" id="generate-questions">Generate questions</button>
+                </form>
+                <ol id="interview-questions"></ol>
+            </section>
+
+            <!-- ===== COURSES ===== -->
+            <section id="learning" class="page" aria-labelledby="learning-heading" hidden>
+                <h2 id="learning-heading" tabindex="-1">Suggested Courses &amp; Resources</h2>
+                <p>Missing skills come from your latest Resume Analyzer run.</p>
+                <section id="missing-skills" class="card" aria-labelledby="missing-skills-heading">
+                    <h3 id="missing-skills-heading">Missing Skills</h3>
+                    <ul id="missing-skills-list"></ul>
+                </section>
+                <section id="course-list" aria-labelledby="course-list-heading">
+                    <h3 id="course-list-heading">Recommended Learning</h3>
+                    <div id="course-cards" class="jobs-grid"></div>
+                </section>
+            </section>
+
+            <!-- ===== APPLICATIONS DASHBOARD ===== -->
+            <section id="dashboard" class="page" aria-labelledby="dashboard-heading" hidden>
+                <h2 id="dashboard-heading" tabindex="-1">Applications Dashboard</h2>
+                <p>Track every job you applied to and update its status. Data stays in this browser only.</p>
+                <section id="dashboard-summary" class="card" aria-labelledby="summary-heading">
+                    <h3 id="summary-heading">Summary</h3>
+                    <dl class="stats" id="stats"></dl>
+                </section>
+                <section id="applied-jobs" class="card" aria-labelledby="applied-jobs-heading">
+                    <h3 id="applied-jobs-heading">Applied Jobs</h3>
+                    <div class="table-wrap" id="apps-wrap"></div>
+                </section>
+            </section>
+
+            <!-- ===== EMAIL DRAFTS ===== -->
+            <section id="emails" class="page" aria-labelledby="emails-heading" hidden>
+                <h2 id="emails-heading" tabindex="-1">Email Drafts</h2>
+                <p class="note">Drafts are never sent by JOBNEX. Review the text, add the recipient yourself, then send it from your own email service.</p>
+                <form id="draft-form" class="card" novalidate>
+                    <div class="grid4">
+                        <div><label for="draft-app">Applied job</label><select id="draft-app"></select></div>
+                        <div><label for="draft-template">Template</label>
+                            <select id="draft-template">
+                                <option value="referral">Request an employee referral</option>
+                                <option value="followup">Follow up on application</option>
+                                <option value="recruiter">Contact a recruiter</option>
+                                <option value="thanks">Thank-you after interview</option>
+                            </select></div>
+                    </div>
+                    <p id="draft-hint" class="muted"></p>
+                    <div class="grid4">
+                        <div><label for="draft-to-email">Recipient email</label><input type="email" id="draft-to-email" placeholder="Enter the address yourself" autocomplete="off"></div>
+                        <div><label for="draft-to-name">Recipient name</label><input type="text" id="draft-to-name" autocomplete="off"></div>
+                        <div><label for="draft-company">Company</label><input type="text" id="draft-company"></div>
+                        <div><label for="draft-title">Job title</label><input type="text" id="draft-title"></div>
+                    </div>
+                    <label for="draft-subject">Subject</label><input type="text" id="draft-subject">
+                    <label for="draft-body">Message</label><textarea id="draft-body" style="min-height:14rem"></textarea>
+                    <p id="draft-msg" role="status" class="muted"></p>
+                    <button type="button" id="draft-generate">Generate Draft</button>
+                    <button type="button" id="draft-edit" class="ghost">Edit</button>
+                    <button type="button" id="draft-save">Save Draft</button>
+                    <button type="button" id="draft-copy" class="ghost">Copy Email</button>
+                    <button type="button" id="draft-mailto" class="ghost">Open in my email app</button>
+                    <button type="button" id="draft-clear" class="ghost">Clear</button>
+                </form>
+                <section class="card" aria-labelledby="saved-heading">
+                    <h3 id="saved-heading">Saved drafts</h3>
+                    <div id="saved-drafts"></div>
+                </section>
+            </section>
+
+            <!-- ===== AUTOMATION (placeholders preserved) ===== -->
+            <section id="automation" class="page" aria-labelledby="automation-heading" hidden>
+                <h2 id="automation-heading" tabindex="-1">Automation</h2>
+                <p class="note">Placeholders only. These need a backend and email service, so they stay disabled.</p>
+                <section id="auto-apply" class="card" aria-labelledby="auto-apply-heading">
+                    <h3 id="auto-apply-heading">Automatic Job Apply</h3>
+                    <form id="auto-apply-form">
+                        <label class="inline"><input type="checkbox" id="auto-apply-toggle" name="auto-apply" disabled> Enable automatic apply</label>
+                        <label for="auto-apply-threshold">Minimum match score</label>
+                        <input type="range" id="auto-apply-threshold" name="auto-apply-threshold" min="50" max="100" value="75" disabled>
+                        <label for="auto-apply-limit">Maximum applications per day</label>
+                        <input type="number" id="auto-apply-limit" name="auto-apply-limit" min="1" max="50" value="5" disabled>
+                        <button type="button" id="save-auto-apply" disabled>Save settings</button>
+                    </form>
+                </section>
+                <section id="auto-refusal" class="card" aria-labelledby="auto-refusal-heading">
+                    <h3 id="auto-refusal-heading">Automatic Job Refusal Emails</h3>
+                    <form id="auto-refusal-form">
+                        <label class="inline"><input type="checkbox" id="auto-refusal-toggle" name="auto-refusal" disabled> Enable automatic refusal emails</label>
+                        <label for="refusal-template">Email template</label>
+                        <textarea id="refusal-template" name="refusal-template" disabled>Dear [Recruiter name],
+
+Thank you for the opportunity to interview for [Job title] at [Company]. After careful consideration, I have decided to withdraw my application.
+
+Best regards,
+[Your name]</textarea>
+                        <button type="button" id="save-auto-refusal" disabled>Save template</button>
+                    </form>
+                </section>
+            </section>
+
+            <!-- ===== PRIVACY ===== -->
+            <section id="privacy" class="page" aria-labelledby="privacy-heading" hidden>
+                <h2 id="privacy-heading" tabindex="-1">Resume Privacy Settings</h2>
+                <form id="privacy-form" class="card">
+                    <fieldset>
+                        <legend>Who can view your resume?</legend>
+                        <label><input type="radio" name="resume-visibility" value="private" checked> Private – only you can see it</label>
+                        <label><input type="radio" name="resume-visibility" value="public"> Public – recruiters can find and view it</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Public profile options</legend>
+                        <label><input type="checkbox" name="hide-contact"> Hide phone number and email</label>
+                        <label><input type="checkbox" name="allow-download"> Allow recruiters to download</label>
+                    </fieldset>
+                    <p class="muted">Preferences are saved in this browser only. No recruiter can see anything until a real backend exists.</p>
+                    <p id="privacy-msg" role="status" class="ok"></p>
+                    <button type="button" id="save-privacy">Save privacy settings</button>
+                </form>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <nav aria-label="Footer navigation">
+                <ul>
+                    <li><a href="#privacy">Privacy</a></li>
+                    <li><a href="#assistant">Help</a></li>
+                    <li><button type="button" class="linkish" id="footer-logout">Sign out</button></li>
+                </ul>
+            </nav>
+            <p><small>&copy; <span id="year">2025</span> JOBNEX. All rights reserved.</small></p>
+        </footer>
+
+        <!-- ===== FLOATING CHATBOT ===== -->
+        <button type="button" id="chat-fab" aria-expanded="false" aria-controls="chat-panel">Ask AI</button>
+        <section id="chat-panel" class="card" role="dialog" aria-labelledby="chat-panel-title" hidden>
+            <header><h2 id="chat-panel-title">Career chat <span class="badge">Demo</span></h2><button type="button" id="chat-close" class="ghost" aria-label="Close chat">✕</button></header>
+            <div id="fab-log" class="chat-log" role="log" aria-live="polite" aria-label="Chat conversation"></div>
+            <div class="chips" data-chips></div>
+            <form id="fab-form" class="chat-row">
+                <div style="flex:1"><label for="fab-input" class="visually-hidden">Your message</label>
+                    <input type="text" id="fab-input" placeholder="Ask a question" autocomplete="off"></div>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        /* ============ helpers ============ */
+        const $ = s => document.querySelector(s);
+        const $$ = s => [...document.querySelectorAll(s)];
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const store = {
+            get(k, d) { try { const v = localStorage.getItem('jobnex.' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+            set(k, v) { try { localStorage.setItem('jobnex.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+        };
+        const daysAgo = n => new Date(Date.now() - n * 864e5).toISOString().slice(0, 10);
+        $('#year').textContent = new Date().getFullYear();
+
+        /* ============ navigation ============ */
+        const PAGES = [['jobs', 'Job Search'], ['analyzer', 'Resume Analyzer'], ['assistant', 'AI Assistant'], ['interview-prep', 'Interview Prep'], ['learning', 'Courses'], ['dashboard', 'Applications'], ['emails', 'Email Drafts'], ['automation', 'Automation'], ['privacy', 'Privacy']];
+        const ALIAS = { filters: 'jobs', account: 'login' };
+        let user = null;
+
+        $('#main-nav').innerHTML = PAGES.map(([id, l]) => `<li><a href="#${id}">${l}</a></li>`).join('');
+        PAGES.forEach(([id], i) => {   // Previous / Next buttons on every page
+            const prev = PAGES[i - 1], next = PAGES[i + 1];
+            $('#' + id).insertAdjacentHTML('beforeend', `<div class="pager"><span>${prev ? `<a class="btn ghost" href="#${prev[0]}">← ${prev[1]}</a>` : ''}</span><span>${next ? `<a class="btn" href="#${next[0]}">${next[1]} →</a>` : ''}</span></div>`);
+        });
+
+        function route() {
+            $('#login-screen').hidden = !!user;
+            $('#app').hidden = !user;
+            if (!user) { document.title = 'Sign in – JOBNEX'; return; }
+            const raw = location.hash.slice(1);
+            let id = ALIAS[raw] || raw;
+            if (!PAGES.some(p => p[0] === id)) id = 'jobs';
+            $$('.page').forEach(p => p.hidden = p.id !== id);
+            $$('#main-nav a').forEach(a => a.getAttribute('href') === '#' + id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+            document.title = PAGES.find(p => p[0] === id)[1] + ' – JOBNEX';
+            if (raw === 'filters') $('#filters').open = true;
+            if (id === 'learning') renderCourses();
+            if (id === 'dashboard') renderDash();
+            if (id === 'emails') renderEmailsPage();
+            window.scrollTo(0, 0);
+            $('#' + id + ' h2').focus({ preventScroll: true });
+        }
+        window.addEventListener('hashchange', route);
+
+        /* ============ login (FRONTEND DEMO – no real authentication) ============ */
+        let mode = 'login';
+        function setMode(m) {
+            mode = m;
+            $('#confirm-row').hidden = m !== 'register';
+            $('#login-button').textContent = m === 'register' ? 'Create account' : 'Log in';
+            $('#create-account').textContent = m === 'register' ? 'Back to login' : 'Create Account';
+            $('#account-heading').textContent = m === 'register' ? 'Create account' : 'Sign in';
+            $('#login-password').autocomplete = m === 'register' ? 'new-password' : 'current-password';
+            clearErrors();
+        }
+        function clearErrors() { $$('#login-form .err').forEach(e => e.textContent = ''); $$('#login-form input').forEach(i => i.removeAttribute('aria-invalid')); $('#login-msg').textContent = ''; }
+        function fieldError(id, msg) { $('#' + id + '-error').textContent = msg; $('#' + id).setAttribute('aria-invalid', 'true'); }
+        $('#create-account').addEventListener('click', () => setMode(mode === 'login' ? 'register' : 'login'));
+        $('#google-login').addEventListener('click', () => { $('#login-msg').textContent = 'Google sign-in needs a Google OAuth client and a backend. It is not connected in this demo, so please use email.'; });
+        $('#forgot-password').addEventListener('click', () => {
+            clearErrors();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#login-email').value.trim())) return fieldError('login-email', 'Enter your email first so we know where a reset would go.');
+            $('#login-msg').textContent = 'Demo only: no reset email is sent because there is no backend.';
+        });
+        $('#login-form').addEventListener('submit', e => {
+            e.preventDefault(); clearErrors();
+            const em = $('#login-email').value.trim(), pw = $('#login-password').value;
+            let bad = false;
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { fieldError('login-email', 'Enter a valid email, like you@example.com.'); bad = true; }
+            if (pw.length < 8) { fieldError('login-password', 'Password must be at least 8 characters.'); bad = true; }
+            if (mode === 'register' && pw !== $('#login-confirm').value) { fieldError('login-confirm', 'Passwords do not match.'); bad = true; }
+            if (bad) return $('#login-form [aria-invalid]').focus();
+            user = { email: em };                       // kept in memory only; reload returns to login
+            $('#user-email').textContent = em + ' (demo)';
+            $('#login-password').value = ''; $('#login-confirm').value = '';
+            setMode('login');
+            location.hash = '#jobs'; route();
+            if (!$('#job-results').innerHTML) runSearch();
+        });
+        function logout() { user = null; closeChat(); location.hash = ''; route(); $('#login-email').focus(); }
+        $('#logout').addEventListener('click', logout);
+        $('#footer-logout').addEventListener('click', logout);
+
+        /* ============ job search (SAMPLE DATA – no live listings) ============ */
+        const EXP = { fresher: 'Fresher (0–1 yrs)', junior: 'Junior (1–3 yrs)', mid: 'Mid-level (3–6 yrs)', senior: 'Senior (6+ yrs)' };
+        const CERT = { aws: 'AWS', azure: 'Azure', gcp: 'Google Cloud', pmp: 'PMP', scrum: 'Scrum', other: 'Other' };
+        const JOBS = [
+            { id: 1, title: 'Frontend Developer', company: 'Northwind Labs', location: 'Bengaluru', region: 'bengaluru', exp: 'junior', yrs: 1, type: 'Full-time', certs: [], desc: 'Build responsive interfaces in HTML, CSS and JavaScript for a hiring platform.' },
+            { id: 2, title: 'Cloud Engineer', company: 'Brightpath Systems', location: 'Hyderabad', region: 'india', exp: 'mid', yrs: 3, type: 'Full-time', certs: ['aws'], desc: 'Design and run AWS infrastructure with Terraform and monitoring.' },
+            { id: 3, title: 'Data Analyst', company: 'Orbit Analytics', location: 'Remote', region: 'global', exp: 'fresher', yrs: 0, type: 'Contract', certs: [], desc: 'Clean data, write SQL and build dashboards for product teams.' },
+            { id: 4, title: 'Project Manager', company: 'Harbor & Finch', location: 'Austin, TX', region: 'us', exp: 'senior', yrs: 6, type: 'Full-time', certs: ['pmp', 'scrum'], desc: 'Lead cross-functional delivery, budgets and stakeholder reporting.' },
+            { id: 5, title: 'DevOps Engineer', company: 'Cobalt Works', location: 'Bengaluru', region: 'bengaluru', exp: 'mid', yrs: 3, type: 'Full-time', certs: ['azure', 'aws'], desc: 'Own CI/CD pipelines, containers and cloud deployments.' },
+            { id: 6, title: 'Junior QA Engineer', company: 'Lumen Software', location: 'Pune', region: 'india', exp: 'fresher', yrs: 0, type: 'Full-time', certs: [], desc: 'Write test cases, run manual and automated tests, report defects.' },
+            { id: 7, title: 'Machine Learning Engineer', company: 'Fieldnote AI', location: 'Seattle, WA', region: 'us', exp: 'senior', yrs: 6, type: 'Full-time', certs: ['gcp'], desc: 'Train and deploy models, working with Python and cloud ML services.' },
+            { id: 8, title: 'Scrum Master', company: 'Tidewater Digital', location: 'Remote', region: 'global', exp: 'mid', yrs: 3, type: 'Part-time', certs: ['scrum'], desc: 'Coach two agile teams and remove delivery blockers.' }
+        ];
+        const regionOk = (sel, r) => sel === 'global' || (sel === 'india' ? (r === 'india' || r === 'bengaluru') : sel === r);
+        function filterJobs() {
+            const kw = $('#job-keywords').value.toLowerCase().trim(), co = $('#job-company').value.toLowerCase().trim(), lo = $('#job-location').value.toLowerCase().trim();
+            const reg = $('#job-region').value, exp = (document.querySelector('input[name=experience]:checked') || {}).value || 'any';
+            const yrs = $('#experience-years').value, type = $('#job-type').value;
+            const certs = $$('input[name=certification]:checked').map(c => c.value);
+            return JOBS.filter(j =>
+                (!kw || (j.title + ' ' + j.desc + ' ' + j.company).toLowerCase().includes(kw)) &&
+                (!co || j.company.toLowerCase().includes(co)) && (!lo || j.location.toLowerCase().includes(lo)) &&
+                regionOk(reg, j.region) && (exp === 'any' || j.exp === exp) && (yrs === '' || j.yrs <= +yrs) &&
+                (!type || j.type === type) && (!certs.length || certs.some(c => j.certs.includes(c))));
+        }
+        function runSearch() {
+            const box = $('#job-results'), btn = $('#search-button');
+            btn.disabled = true;
+            box.innerHTML = '<p class="card" role="status"><span class="spinner"></span>Searching sample jobs…</p>';
+            setTimeout(() => {
+                try {
+                    const list = filterJobs(), applied = new Set(getApps().map(a => a.jobId));
+                    box.innerHTML = !list.length
+                        ? '<div class="card"><h3>No sample jobs match</h3><p>Try fewer filters, a broader region, or press Clear.</p></div>'
+                        : `<p>${list.length} sample job${list.length > 1 ? 's' : ''} found. <span class="muted">Apply adds the job to your tracker only; it does not send an application.</span></p><div class="jobs-grid">` +
+                        list.map(j => `<article class="card"><h3>${esc(j.title)}</h3><p class="muted">${esc(j.company)} · ${esc(j.location)}</p>
+                            <p><span class="tag">${EXP[j.exp]}</span><span class="tag">${j.type}</span>${j.certs.map(c => `<span class="tag">${CERT[c]}</span>`).join('')}</p>
+                            <p>${esc(j.desc)}</p><button type="button" data-apply="${j.id}" ${applied.has(j.id) ? 'disabled' : ''}>${applied.has(j.id) ? 'Applied' : 'Apply'}</button></article>`).join('') + '</div>';
+                } catch (err) {
+                    box.innerHTML = '<div class="card" role="alert"><h3>Something went wrong</h3><p>The search could not run. Check your filters and try again.</p><button type="button" id="retry-search">Retry</button></div>';
+                }
+                btn.disabled = false;
+            }, 500);
+        }
+        $('#search-form').addEventListener('submit', e => { e.preventDefault(); runSearch(); });
+        $('#apply-cert-exp-filters').addEventListener('click', runSearch);
+        $('#clear-search').addEventListener('click', () => { $('#search-form').reset(); runSearch(); });
+        $('#job-results').addEventListener('click', e => {
+            if (e.target.id === 'retry-search') return runSearch();
+            const id = +e.target.dataset.apply; if (!id) return;
+            const j = JOBS.find(x => x.id === id), apps = getApps();
+            apps.push({ id: 'a' + Date.now(), jobId: id, company: j.company, title: j.title, date: daysAgo(0), status: 'Applied' });
+            saveApps(apps); e.target.textContent = 'Applied'; e.target.disabled = true;
+        });
+
+        /* ============ resume analyzer ============ */
+        const STOP = new Set('and the for with you our are will have has this that from your their they not but can all any who use using able also into more must such than then them these those its was were been being work team'.split(' '));
+        const words = t => [...new Set((t.toLowerCase().match(/[a-z][a-z+#.]{2,}/g) || []).map(w => w.replace(/\.$/, '')).filter(w => !STOP.has(w)))];
+        // Replace the body of this function with a fetch() to your own backend when you have one. Never put API keys in this file.
+        async function analyzeResume(resume, jd) {
+            const r = new Set(words(resume)), j = words(jd);
+            const hit = j.filter(w => r.has(w)), miss = j.filter(w => !r.has(w));
+            return { score: j.length ? Math.round(hit.length / j.length * 100) : 0, hit, miss };
+        }
+        $('#analyze-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const btn = $('#analyze-button'), st = $('#status');
+            btn.disabled = true; st.textContent = 'Analyzing in your browser (demo)…';
+            const res = await analyzeResume($('#resume_text').value, $('#jd_text').value);
+            store.set('missing', res.miss.slice(0, 8));
+            $('#result-data').textContent = `Match score (demo keyword overlap): ${res.score}%\n\nMatched keywords:\n${res.hit.slice(0, 25).join(', ') || 'none'}\n\nMissing keywords:\n${res.miss.slice(0, 25).join(', ') || 'none'}\n\nThis is a simple word comparison, not an AI review.`;
+            $('#results').hidden = false; st.textContent = 'Analysis complete. Missing skills were added to the Courses page.';
+            btn.disabled = false;
+        });
+
+        /* ============ AI chat (DEMO replies) ============ */
+        const TOPICS = ['Improve my resume', 'Match me to jobs', 'What skills am I missing?', 'Prepare for interviews', 'Career guidance'];
+        const REPLIES = [
+            [/resume|cv/, 'Start with a one-line summary aimed at the role, then lead each bullet with an action verb and a result you can measure. Mirror key words from the job description where they are true.'],
+            [/match|job/, 'Compare the job description with your resume in the Resume Analyzer, then use Job Search filters for experience level and region.'],
+            [/skill|missing/, () => { const m = store.get('missing', []); return m.length ? 'From your last analysis, these keywords are missing: ' + m.slice(0, 5).join(', ') + '. See the Courses page.' : 'Run the Resume Analyzer first and your missing skills will show here and on the Courses page.'; }],
+            [/interview/, 'Use the Interview Prep page for sample questions. For each answer, try Situation, Action, Result in about two minutes.'],
+            [/career|guid|path/, 'List the tasks you enjoy most, find roles that feature them, and pick one skill to build over the next month.']
+        ];
+        const history = [];
+        // To use a real AI later: send `text` to YOUR backend endpoint from here and return its reply (set real:true).
+        async function getReply(text) {
+            const hit = REPLIES.find(r => r[0].test(text.toLowerCase()));
+            return { real: false, text: hit ? (typeof hit[1] === 'function' ? hit[1]() : hit[1]) : 'This demo only has scripted answers. Try one of the suggested topics.' };
+        }
+        function addMsg(role, text, real) { history.push({ role, text, real }); $$('.chat-log').forEach(log => paintMsg(log, role, text, real)); }
+        function paintMsg(log, role, text, real) {
+            const d = document.createElement('div'); d.className = 'chat-msg ' + role;
+            if (role === 'bot') { const b = document.createElement('span'); b.className = 'badge'; b.textContent = real ? 'AI' : 'Demo reply, not AI'; d.append(b, document.createElement('br')); }
+            d.append(document.createTextNode(text)); log.append(d); log.scrollTop = log.scrollHeight;
+        }
+        async function send(text) {
+            text = text.trim(); if (!text) return;
+            addMsg('user', text);
+            const r = await getReply(text);
+            setTimeout(() => addMsg('bot', r.text, r.real), 350);
+        }
+        $$('[data-chips]').forEach(c => c.innerHTML = TOPICS.map(t => `<button type="button">${t}</button>`).join(''));
+        document.addEventListener('click', e => { if (e.target.closest('[data-chips]') && e.target.tagName === 'BUTTON') { send(e.target.textContent); } });
+        [['#chat-form', '#chat-input'], ['#fab-form', '#fab-input']].forEach(([f, i]) => $(f).addEventListener('submit', e => { e.preventDefault(); send($(i).value); $(i).value = ''; }));
+        addMsg('bot', 'Hi! I am a demo assistant with scripted answers. Pick a suggested topic or type a question about your resume, jobs, skills, interviews or career.');
+        function closeChat() { $('#chat-panel').hidden = true; $('#chat-fab').setAttribute('aria-expanded', 'false'); }
+        $('#chat-fab').addEventListener('click', () => {
+            const open = $('#chat-panel').hidden; $('#chat-panel').hidden = !open;
+            $('#chat-fab').setAttribute('aria-expanded', open); if (open) $('#fab-input').focus();
+        });
+        $('#chat-close').addEventListener('click', () => { closeChat(); $('#chat-fab').focus(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#chat-panel').hidden) { closeChat(); $('#chat-fab').focus(); } });
+
+        /* ============ interview prep ============ */
+        const QS = {
+            technical: [['Explain a technical concept from your resume to a non-expert.', 'Use a simple analogy, then one real example.'], ['How do you debug a problem you have never seen before?', 'Describe steps: reproduce, isolate, test a guess, confirm.'], ['Which tool or language are you strongest in, and why?', 'Give a project where it solved a real problem.']],
+            behavioral: [['Tell me about yourself and your most relevant experience.', 'Keep to about two minutes: present, past, why this role.'], ['Describe a challenging project and how you handled it.', 'Use Situation, Action, Result and name your own part.'], ['Tell me about a time you disagreed with a teammate.', 'Show respect and a concrete outcome.']],
+            hr: [['Why are you interested in this role?', 'Connect the company mission and role tasks to your goals.'], ['Where do you see yourself in three years?', 'Be honest and tie growth to the role.'], ['What kind of team culture helps you do your best work?', 'Be specific and positive.']],
+            situational: [['A deadline is at risk. What do you do first?', 'Clarify priorities, communicate early, offer options.'], ['You find an error in work already delivered. What next?', 'Own it, fix it, explain how you will prevent a repeat.'], ['Two managers give you conflicting tasks. How do you respond?', 'Surface the conflict and ask them to align priorities.']]
+        };
+        function genQuestions() {
+            $('#interview-questions').innerHTML = QS[$('#interview-category').value].map(([q, t]) => `<li><p>${esc(q)}</p><details><summary>Tips for answering</summary><p>${esc(t)}</p></details></li>`).join('');
+        }
+        $('#generate-questions').addEventListener('click', genQuestions); genQuestions();
+
+        /* ============ courses (sample suggestions) ============ */
+        function renderCourses() {
+            const m = store.get('missing', []);
+            $('#missing-skills-list').innerHTML = m.length ? m.map(s => `<li>${esc(s)}</li>`).join('') : '<li>No analysis yet. Run the Resume Analyzer to see missing skills.</li>';
+            $('#course-cards').innerHTML = m.slice(0, 4).map(s => `<article class="card"><h4>Learn ${esc(s)}</h4><p class="muted">Sample suggestion</p><p>Search a course provider for “${esc(s)}”. Real course links need a course catalog that is not connected.</p></article>`).join('');
+        }
+
+        /* ============ applications dashboard ============ */
+        const STATUSES = ['Applied', 'Interviewing', 'Offer', 'Rejected', 'Withdrawn'];
+        const getApps = () => store.get('apps', null) || [{ id: 'a1', jobId: 3, company: 'Orbit Analytics', title: 'Data Analyst', date: daysAgo(9), status: 'Applied' }, { id: 'a2', jobId: 5, company: 'Cobalt Works', title: 'DevOps Engineer', date: daysAgo(14), status: 'Interviewing' }];
+        const saveApps = a => store.set('apps', a);
+        function renderDash() {
+            const apps = getApps(), n = s => apps.filter(a => a.status === s).length;
+            $('#stats').innerHTML = [['Applied', n('Applied')], ['Interviewing', n('Interviewing')], ['Offers', n('Offer')], ['Rejected', n('Rejected')]].map(([l, v]) => `<div><dt>${l}</dt><dd>${v}</dd></div>`).join('');
+            $('#apps-wrap').innerHTML = !apps.length ? '<p>No applications yet. Use Apply on a job in Job Search.</p>' :
+                `<table><caption>Your job applications</caption><thead><tr><th scope="col">Company</th><th scope="col">Role</th><th scope="col">Date applied</th><th scope="col">Status</th><th scope="col">Update status</th><th scope="col">Actions</th></tr></thead><tbody>` +
+                apps.map((a, i) => `<tr><td>${esc(a.company)}</td><td>${esc(a.title)}</td><td><time datetime="${a.date}">${a.date}</time></td><td>${esc(a.status)}</td>
+                <td><label for="status-row-${i + 1}" class="visually-hidden">Status for ${esc(a.company)}</label><select id="status-row-${i + 1}" data-status="${a.id}">${STATUSES.map(s => `<option ${s === a.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td>
+                <td><button type="button" data-draft="${a.id}">Draft email</button><button type="button" class="ghost" data-remove="${a.id}" aria-label="Remove ${esc(a.company)}">Remove</button></td></tr>`).join('') + '</tbody></table>';
+        }
+        $('#apps-wrap').addEventListener('change', e => {
+            const id = e.target.dataset.status; if (!id) return;
+            const apps = getApps(), a = apps.find(x => x.id === id); a.status = e.target.value; saveApps(apps); renderDash();
+            if ($('#draft-app').value === id) statusChanged();
+        });
+        $('#apps-wrap').addEventListener('click', e => {
+            if (e.target.dataset.draft) { pendingApp = e.target.dataset.draft; location.hash = '#emails'; }
+            if (e.target.dataset.remove) { saveApps(getApps().filter(a => a.id !== e.target.dataset.remove)); renderDash(); }
+        });
+
+        /* ============ email drafts (never sent automatically) ============ */
+        const TPL = {
+            referral: { subj: 'Referral request: {title} at {company}', body: 'Hi {name},\n\nI hope you are doing well. I saw that {company} is hiring for {title} and I have applied (current status: {status}). Because you work at {company}, I would be grateful if you could refer me or share any advice on the process.\n\nI can send my resume and a short note on why I am a good fit. Thank you for considering this.\n\nBest regards,\n[Your name]' },
+            followup: { subj: 'Following up: {title} application', body: 'Hi {name},\n\nI applied for the {title} role at {company} and wanted to follow up on my application (current status: {status}). I remain very interested and happy to share anything that would help your review.\n\nThank you for your time.\n\nBest regards,\n[Your name]' },
+            recruiter: { subj: 'Interested in {title} at {company}', body: 'Hi {name},\n\nI am reaching out about the {title} position at {company}. My background fits the role and I would welcome a short conversation about next steps.\n\nCould you let me know the best way to move forward?\n\nBest regards,\n[Your name]' },
+            thanks: { subj: 'Thank you: {title} interview', body: 'Hi {name},\n\nThank you for taking the time to speak with me about the {title} role at {company}. I enjoyed learning more about the team and I am excited about the opportunity.\n\nPlease let me know if you need anything else from me.\n\nBest regards,\n[Your name]' }
+        };
+        const SUGGEST = { Applied: 'followup', Interviewing: 'thanks', Offer: 'thanks', Rejected: 'recruiter', Withdrawn: 'recruiter' };
+        let pendingApp = null, last = { body: '', subject: '' }, cur = { company: '', title: '' };
+        const v = id => $('#' + id).value;
+        const getApp = () => getApps().find(a => a.id === v('draft-app'));
+        const dmsg = t => $('#draft-msg').textContent = t;
+
+        function renderEmailsPage() {
+            const apps = getApps(), keep = pendingApp || v('draft-app');
+            $('#draft-app').innerHTML = '<option value="">Select an application</option>' + apps.map(a => `<option value="${a.id}">${esc(a.company)} – ${esc(a.title)} (${esc(a.status)})</option>`).join('');
+            $('#draft-app').value = apps.some(a => a.id === keep) ? keep : '';
+            if (pendingApp) { pendingApp = null; pickApp(); }
+            renderSaved();
+        }
+        function pickApp() {
+            const a = getApp(), old = { ...cur };
+            if (!a) { $('#draft-hint').textContent = ''; return; }
+            $('#draft-company').value = a.company; $('#draft-title').value = a.title; cur = { company: a.company, title: a.title };
+            $('#draft-hint').textContent = `Status: ${a.status}. Suggested template: ${$('#draft-template option[value=' + SUGGEST[a.status] + ']').textContent}.`;
+            detailsChanged(old, 'Selected application changed.');
+        }
+        function build() {
+            const t = TPL[v('draft-template')], a = getApp();
+            const f = s => s.replace(/\{name\}/g, v('draft-to-name').trim() || 'there').replace(/\{company\}/g, v('draft-company').trim() || '[Company]').replace(/\{title\}/g, v('draft-title').trim() || '[Job title]').replace(/\{status\}/g, a ? a.status : '[status]');
+            return { subject: f(t.subj), body: f(t.body) };
+        }
+        function generate() { const b = build(); $('#draft-subject').value = b.subject; $('#draft-body').value = b.body; last = b; cur = { company: v('draft-company'), title: v('draft-title') }; }
+        // Keeps drafts in sync with changed details WITHOUT wiping text you wrote yourself.
+        function detailsChanged(old, why) {
+            const body = $('#draft-body'); if (!body.value.trim()) return;
+            if (body.value === last.body) {   // untouched generated text: safe to rebuild
+                const b = build(), subjUntouched = v('draft-subject') === last.subject;
+                body.value = b.body; if (subjUntouched) $('#draft-subject').value = b.subject; last = { body: b.body, subject: subjUntouched ? b.subject : last.subject };
+                dmsg(why + ' Draft refreshed with the new details.');
+            } else {                          // you edited it: only swap the old company/title text, keep the rest
+                [['company', v('draft-company')], ['title', v('draft-title')]].forEach(([k, nv]) => {
+                    if (old[k] && nv && old[k] !== nv) { body.value = body.value.split(old[k]).join(nv); $('#draft-subject').value = v('draft-subject').split(old[k]).join(nv); }
+                });
+                dmsg(why + ' Your edited message was kept; only the company/job title text was updated. Check the wording before saving.');
+            }
+            cur = { company: v('draft-company'), title: v('draft-title') };
+        }
+        function statusChanged() {
+            const a = getApp(); if (!a) return;
+            $('#draft-hint').textContent = `Status: ${a.status}. Suggested template: ${$('#draft-template option[value=' + SUGGEST[a.status] + ']').textContent}.`;
+            const body = $('#draft-body');
+            if (body.value.trim() && body.value === last.body) detailsChanged(cur, 'Application status changed.');
+            else if (body.value.trim()) dmsg('Application status changed to ' + a.status + '. Your edited message was not touched; review it.');
+            renderEmailsPage();
+        }
+        $('#draft-app').addEventListener('change', pickApp);
+        ['draft-company', 'draft-title'].forEach(id => $('#' + id).addEventListener('change', () => detailsChanged(cur, 'Details changed.')));
+        $('#draft-generate').addEventListener('click', () => {
+            if (!v('draft-company').trim() && !v('draft-title').trim()) return dmsg('Select an application or fill in company and job title first.');
+            if ($('#draft-body').value.trim() && $('#draft-body').value !== last.body && !confirm('Replace your edited message with a new draft?')) return;
+            generate(); dmsg('Draft generated. Edit it, then copy or open it in your email app. Nothing is sent.');
+        });
+        $('#draft-edit').addEventListener('click', () => { $('#draft-body').focus(); dmsg('You can edit the subject and message directly.'); });
+        $('#draft-clear').addEventListener('click', () => { ['draft-to-email', 'draft-to-name', 'draft-subject', 'draft-body'].forEach(id => $('#' + id).value = ''); last = { body: '', subject: '' }; dmsg('Cleared.'); });
+        const emailText = () => `To: ${v('draft-to-email')}\nSubject: ${v('draft-subject')}\n\n${v('draft-body')}`;
+        $('#draft-copy').addEventListener('click', async () => {
+            if (!v('draft-body').trim()) return dmsg('Nothing to copy yet. Generate a draft first.');
+            try { await navigator.clipboard.writeText(emailText()); dmsg('Copied to your clipboard.'); }
+            catch (e) { $('#draft-body').select(); dmsg('Copy was blocked by the browser. The message is selected so you can press Ctrl+C.'); }
+        });
+        $('#draft-mailto').addEventListener('click', () => {
+            if (!v('draft-body').trim()) return dmsg('Generate or write a draft first.');
+            location.href = 'mailto:' + encodeURIComponent(v('draft-to-email').trim()) + '?subject=' + encodeURIComponent(v('draft-subject')) + '&body=' + encodeURIComponent(v('draft-body'));
+            dmsg('Your email app should open with this draft. Review it and send it yourself.');
+        });
+        $('#draft-save').addEventListener('click', () => {
+            if (!v('draft-body').trim()) return dmsg('Write or generate a message before saving.');
+            const d = store.get('drafts', []);
+            d.unshift({ id: 'd' + Date.now(), appId: v('draft-app'), template: v('draft-template'), to: v('draft-to-email'), name: v('draft-to-name'), company: v('draft-company'), title: v('draft-title'), subject: v('draft-subject'), body: v('draft-body'), saved: new Date().toLocaleString() });
+            dmsg(store.set('drafts', d) ? 'Draft saved in this browser only.' : 'Could not save: browser storage is unavailable.'); renderSaved();
+        });
+        function renderSaved() {
+            const d = store.get('drafts', []);
+            $('#saved-drafts').innerHTML = d.length ? d.map(x => `<div class="saved-item"><span><strong>${esc(x.subject || '(no subject)')}</strong><br><small class="muted">${esc(x.company)} · saved ${esc(x.saved)}</small></span><span><button type="button" class="ghost" data-load="${x.id}">Load</button><button type="button" class="ghost" data-del="${x.id}">Delete</button></span></div>`).join('') : '<p class="muted">No saved drafts yet.</p>';
+        }
+        $('#saved-drafts').addEventListener('click', e => {
+            const d = store.get('drafts', []);
+            if (e.target.dataset.del) { store.set('drafts', d.filter(x => x.id !== e.target.dataset.del)); renderSaved(); }
+            if (e.target.dataset.load) {
+                const x = d.find(y => y.id === e.target.dataset.load); if (!x) return;
+                if (getApps().some(a => a.id === x.appId)) $('#draft-app').value = x.appId;
+                $('#draft-template').value = x.template; $('#draft-to-email').value = x.to; $('#draft-to-name').value = x.name; $('#draft-company').value = x.company; $('#draft-title').value = x.title; $('#draft-subject').value = x.subject; $('#draft-body').value = x.body;
+                last = { body: '', subject: '' }; cur = { company: x.company, title: x.title }; dmsg('Saved draft loaded.');
+            }
+        });
+
+        /* ============ privacy ============ */
+        (function loadPrivacy() {
+            const p = store.get('privacy', null); if (!p) return;
+            const r = document.querySelector(`input[name=resume-visibility][value=${p.vis}]`); if (r) r.checked = true;
+            $('input[name=hide-contact]').checked = !!p.hide; $('input[name=allow-download]').checked = !!p.dl;
+        })();
+        $('#save-privacy').addEventListener('click', () => {
+            const ok = store.set('privacy', { vis: document.querySelector('input[name=resume-visibility]:checked').value, hide: $('input[name=hide-contact]').checked, dl: $('input[name=allow-download]').checked });
+            $('#privacy-msg').textContent = ok ? 'Saved in this browser.' : 'Could not save: browser storage is unavailable.';
+        });
+
+        route();
+    </script>
+</body>
+
+</html>
